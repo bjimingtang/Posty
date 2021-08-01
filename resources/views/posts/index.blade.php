@@ -21,16 +21,21 @@
           </div>
         </form>
 
-        @if ($posts->count())
-          @foreach ($posts as $post)
-            <x-post :post="$post" />
-          @endforeach
 
-          {{ $posts->links() }}
+      @endauth
+      @if ($posts->count())
+        @foreach ($posts as $post)
+          <x-post :post="$post" />
+        @endforeach
+
+        {{ $posts->links() }}
+      @else
+        @guest
+          <p></p>
         @else
           <p>There are no posts. Start posting!</p>
-        @endif
-      @endauth
+        @endguest
+      @endif
     </div>
   </div>
 @endsection

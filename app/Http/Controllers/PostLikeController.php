@@ -22,7 +22,7 @@ class PostLikeController extends Controller
       $post->likes()->create([
         'user_id' => $request->user()->id
       ]);
-
+      // only mail the post's owner if it's the first time a specific user liked the post by checking for soft deleted like
       if (!$post->likes()->onlyTrashed()->where('user_id', $request->user()->id)->count()) {
         Mail::to($post->user)->send(new PostLiked(auth()->user(), $post));
       }
